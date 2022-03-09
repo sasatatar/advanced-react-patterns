@@ -15,6 +15,8 @@ function Toggle(props) {
   // 📜 https://reactjs.org/docs/react-api.html#reactchildren
   // 📜 https://reactjs.org/docs/react-api.html#cloneelement
   return React.Children.map(props.children, child => {
+    console.log(child)
+    if (typeof child.type === 'string') return child;
     return React.cloneElement(child, { on, toggle });
   })
 }
@@ -41,7 +43,6 @@ function App() {
     </div>
   )
 }
-
 export default App
 
 /*
