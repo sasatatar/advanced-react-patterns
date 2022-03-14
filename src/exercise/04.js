@@ -2,7 +2,11 @@
 // http://localhost:3000/isolated/exercise/04.js
 
 import * as React from 'react'
-import {Switch} from '../switch'
+import { Switch } from '../switch'
+
+function callAll(...fns) {
+  return (...args) => fns.forEach(fn => fn?.(...args));
+}
 
 function useToggle() {
   const [on, setOn] = React.useState(false)
@@ -14,10 +18,7 @@ function useToggle() {
   function getTogglerProps({ onClick, ...props } = {}) {
     return {
       'aria-pressed': on,
-      onClick() {
-        toggle();
-        onClick && onClick();
-      },
+      onClick: callAll(toggle, onClick),
       ...props
     }
   }
